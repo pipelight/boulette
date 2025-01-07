@@ -43,7 +43,7 @@ impl Prompt {
         println!(
             "{}: {} {}{} -> {}",
             "Warning".yellow().bold(),
-            "(molly-breaks)",
+            "(boulette)",
             "You are on a remote ssh session".bold(),
             user.yellow().bold(),
             hostname.green().bold()

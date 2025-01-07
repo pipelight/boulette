@@ -1,5 +1,5 @@
 {
-  description = "Molly-breaks - Prevent accidental remote host shutdown";
+  description = "Boulette - Prevent accidental remote host shutdown";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

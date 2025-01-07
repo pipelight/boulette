@@ -134,6 +134,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "boulette"
+version = "0.1.0"
+dependencies = [
+ "bon",
+ "clap",
+ "gethostname",
+ "inquire",
+ "miette",
+ "owo-colors",
+]
+
+[[package]]
 name = "byteorder"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -432,18 +444,6 @@ dependencies = [
  "log",
  "wasi",
  "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "molly-breaks"
-version = "0.1.0"
-dependencies = [
- "bon",
- "clap",
- "gethostname",
- "inquire",
- "miette",
- "owo-colors",
 ]
 
 [[package]]

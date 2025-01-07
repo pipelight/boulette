@@ -1,11 +1,11 @@
-# Molly-breaks
+# Boulette
 
 Prevent from accidental host shutdown.
 
-Use `molly-break` before a critical command and put this in your alias.
+Use `boulette` before a critical command and put this in your alias.
 
 ```sh
-alias shutdown= "molly-break shutdown"
+alias shutdown= "boulette shutdown"
 ```
 
 If you are in an ssh session,
