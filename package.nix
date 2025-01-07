@@ -29,10 +29,4 @@ pkgs.rustPlatform.buildRustPackage rec {
       IOKit
       Security
     ]);
-
-  postInstall = ''
-    installShellCompletion --bash ./autocompletion/${pname}.bash
-    installShellCompletion --fish ./autocompletion/${pname}.fish
-    installShellCompletion --zsh ./autocompletion/_${pname}
-  '';
 }
