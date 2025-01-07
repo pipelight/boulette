@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bon = "3.3.2"
 clap = { version = "4.5.23", features = ["derive"] }
 gethostname = "0.5.0"
 inquire = "0.7.5"
