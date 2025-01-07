@@ -2,34 +2,15 @@
 use owo_colors::colors::*;
 use owo_colors::OwoColorize;
 
-use bon::{builder, Builder};
+use bon::Builder;
 use std::env;
-use std::process::{exit, ExitCode};
 
 use gethostname::gethostname;
 
-use inquire::{
-    validator::{StringValidator, Validation},
-    Confirm, Text,
-};
+use inquire::{validator::Validation, Confirm, Text};
 
 // Error handling
 use miette::{IntoDiagnostic, Result};
-use std::error::Error;
-
-fn is_ssh_session() -> bool {
-    env::var("SSH_TTY").is_ok()
-}
-
-fn host_validator(input: &str) -> Result<Validation, Box<dyn Error + Send + Sync>> {
-    let hostname = gethostname();
-    if input == hostname {
-        Ok(Validation::Valid)
-    } else {
-        let message = "Input do not match host name";
-        Ok(Validation::Invalid(message.into()))
-    }
-}
 
 #[derive(Debug, Default, Builder)]
 pub struct Prompt {

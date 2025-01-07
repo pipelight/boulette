@@ -2,6 +2,7 @@ mod cli;
 mod prompt;
 
 use cli::Cli;
+use std::env;
 
 // Error handling
 use miette::Result;
@@ -14,4 +15,8 @@ fn main() -> Result<()> {
         Cli::run()?;
     }
     Ok(())
+}
+
+fn is_ssh_session() -> bool {
+    env::var("SSH_TTY").is_ok()
 }

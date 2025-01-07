@@ -1,6 +1,6 @@
 use super::prompt::Prompt;
 // Error Handling
-use miette::{IntoDiagnostic, Result};
+use miette::Result;
 
 use clap::{Args, Parser, Subcommand, ValueEnum, ValueHint};
 // use clap_verbosity_flag::{InfoLevel, Verbosity};
