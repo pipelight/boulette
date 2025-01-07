@@ -34,10 +34,12 @@ impl Prompt {
     fn make_prompt_text(&self) -> Result<String> {
         let hostname = format!("@{}", gethostname().to_str().unwrap());
         // Shorten cmd
-        let short_cmd: String = if self.cmd.len() > 15 {
-            self.cmd.clone().drain(..15).collect()
+        let short_cmd: String;
+        if self.cmd.len() > 30 {
+            let s: String = self.cmd.clone().drain(..30).collect();
+            short_cmd = format!("{}...", s);
         } else {
-            self.cmd.clone()
+            short_cmd = self.cmd.clone()
         };
         let text = format!(
             "Do you really want to execute \"{}\" on {}\n",
