@@ -5,7 +5,7 @@
   ...
 }:
 pkgs.rustPlatform.buildRustPackage rec {
-  pname = "pipelight";
+  pname = "molly-breaks";
   version = (builtins.fromTOML (lib.readFile ./Cargo.toml)).package.version;
   src = ./.;
 
