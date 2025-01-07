@@ -6,28 +6,36 @@ Prevent you from accidentally shutting down remote hosts.
 
 Type `boulette` before a critical command and a confirmation prompt will show up.
 
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/boulette_hostname_challenge.png)
-
 ```sh
 boulette "shutdown -h now"
 ```
+
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
+
+### Ssh Only
+
+Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
+
+```sh
+boulette "shutdown -h now" --ssh-only
+```
+
+### Challenges
+
+In order to execute the provided command you can choose between 2 challenges to be resolved:
+
+- ask, with `--challenge ask` so you have to type 'y' or 'n' to resume commande execution.
+  ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
+- hostname, with `--challenge hostname` so you must type the host name to resume command execution.
+  ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/hostname_challenge.png)
+
+### Aliases
 
 For convenience, you should create aliases and add them to your alias file.
 
 ```sh
 alias off='boulette "shutdown -h now"'
 ```
-
-Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
-
-```sh
-alias off='boulette "shutdown -h now" --ssh-only'
-```
-
-In order to execute the provided command you can choose between 2 challenges to be resolved:
-
-- ask, you have to type 'y' or 'n'.
-- hostname, you must type the host name.
 
 Here are the ones I use the most frequently.
 
