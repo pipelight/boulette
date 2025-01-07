@@ -1,6 +1,9 @@
-# Boulette
+# Boulette - A terminal confirmation prompt.
 
-Prevent you from accidentally shutting down remote hosts.
+Prevents you from accidentally shutting down remote hosts.
+
+If you've ever finished a late night codding session
+by typing "shutdown -h now" in the wrong terminal.
 
 ## Usage
 
@@ -25,8 +28,11 @@ boulette "shutdown -h now" --ssh-only
 In order to execute the provided command you can choose between 2 challenges to be resolved:
 
 - ask, with `--challenge ask` so you have to type 'y' or 'n' to resume commande execution.
+
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
+
 - hostname, with `--challenge hostname` so you must type the host name to resume command execution.
+
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/hostname_challenge.png)
 
 ### Aliases
@@ -50,8 +56,18 @@ alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
 alias reboot='boulette reboot --ssh-only --challenge hostname'
 ```
 
-You can also prefix every shutdown commands wit boulette (fish shell).
+You can also prefix every shutdown commands wit boulette.
 This way `shutdown` and `shutdown -h now` will both require confirmation.
+
+- bash/zsh
+
+```sh
+shutdown () {
+  boulette "shutdown $argv" --ssh-only --challenge hostname
+}
+```
+
+- fish
 
 ```fish
 function shutdown;
