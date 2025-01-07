@@ -22,7 +22,7 @@ impl Prompt {
         let user = env::var("USER").into_diagnostic()?;
         let hostname = format!("@{}", gethostname().to_str().unwrap());
         println!(
-            "{}: {} {}{} -> {}",
+            "{}: {} {} -> {}{}",
             "Warning".yellow().bold(),
             "(boulette)",
             "You are on a remote ssh session".bold(),
