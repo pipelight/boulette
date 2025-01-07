@@ -65,19 +65,16 @@ impl Cli {
             .map_err(|err| err.exit())
             .unwrap();
 
-        if cli.ssh_only.unwrap() {
-            if !is_ssh_session() {
+        if cli.ssh_only.unwrap() && !is_ssh_session() {
+        } else {
+            let prompt = Prompt::builder().cmd(cli.cmd.clone()).build();
+            let res = match cli.challenge.unwrap() {
+                Challenges::Ask => prompt.display_ask(),
+                Challenges::Hostname => prompt.display_host_challenge(),
+            };
+            if res.is_err() {
                 return Ok(());
             }
-        }
-
-        let prompt = Prompt::builder().cmd(cli.cmd.clone()).build();
-        let res = match cli.challenge.unwrap() {
-            Challenges::Ask => prompt.display_ask(),
-            Challenges::Hostname => prompt.display_host_challenge(),
-        };
-        if res.is_err() {
-            return Ok(());
         }
 
         let default_shell = env::var("SHELL").into_diagnostic()?;
