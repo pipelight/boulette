@@ -1,26 +1,36 @@
 use super::prompt::Prompt;
+use super::utils::is_ssh_session;
+
 use owo_colors::colors::*;
 use owo_colors::OwoColorize;
+use std::env;
 
 use clap::FromArgMatches;
 use clap::{Args, Command, Parser, Subcommand, ValueEnum, ValueHint};
 // use clap_verbosity_flag::{InfoLevel, Verbosity};
+use std::process;
 
 // Error Handling
-use miette::Result;
+use miette::{IntoDiagnostic, Result};
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about = None)]
 pub struct Cli {
     pub cmd: String,
 
-    // #[arg(long, global = true , num_args=0..1, require_equals= true, default_missing_value= "false" , default_value = "false")]
-    #[arg(long, global = true, required = false)]
+    #[arg(
+        long,
+        global = true,
+        required = false,
+        default_missing_value = "false",
+        default_value = "false"
+    )]
     pub ssh_only: Option<bool>,
 
     #[arg(
         long,
         global = true,
+        required = false,
         default_missing_value = "ask",
         default_value = "ask"
     )]
@@ -55,17 +65,24 @@ impl Cli {
             .map_err(|err| err.exit())
             .unwrap();
 
-        if let Some(challenge) = cli.challenge {
-            match challenge {
-                Challenges::Ask => {
-                    let prompt = Prompt::builder().cmd(cli.cmd).build();
-                    prompt.display_ask()?;
-                }
-                Challenges::Hostname => {
-                    let prompt = Prompt::builder().cmd(cli.cmd).build();
-                    prompt.display_host_challenge()?;
-                }
-            };
+        if cli.ssh_only.unwrap() {
+            if !is_ssh_session() {
+                return Ok(());
+            }
+        }
+
+        let prompt = Prompt::builder().cmd(cli.cmd.clone()).build();
+        let res = match cli.challenge.unwrap() {
+            Challenges::Ask => prompt.display_ask(),
+            Challenges::Hostname => prompt.display_host_challenge(),
+        };
+        if res.is_err() {
+            return Ok(());
+        } else {
+            let default_shell = env::var("SHELL").into_diagnostic()?;
+            let mut p = process::Command::new(default_shell);
+            p.arg("-c").arg(&cli.cmd);
+            p.spawn().into_diagnostic()?;
         }
         Ok(())
     }

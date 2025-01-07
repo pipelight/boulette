@@ -10,7 +10,7 @@ use gethostname::gethostname;
 use inquire::{validator::Validation, Confirm, Text};
 
 // Error handling
-use miette::{IntoDiagnostic, Result};
+use miette::{Error, IntoDiagnostic, Result};
 
 #[derive(Debug, Default, Builder)]
 pub struct Prompt {
@@ -56,17 +56,19 @@ impl Prompt {
             .prompt();
 
         match res {
-            Ok(status) => match status {
-                true => {
-                    println!("{}", "Resuming!".green().bold());
+            Ok(status) => {
+                match status {
+                    true => {
+                        println!("{}", "Resuming!".green().bold());
+                    }
+                    false => {
+                        println!("{}", "Aborting!".red().bold());
+                    }
                 }
-                false => {
-                    println!("{}", "Aborting!".red().bold());
-                }
-            },
-            Err(err) => {}
+                return Ok(());
+            }
+            Err(err) => Err(Error::msg(err)),
         }
-        Ok(())
     }
 
     pub fn display_host_challenge(&self) -> Result<()> {
@@ -90,9 +92,9 @@ impl Prompt {
                     );
                     println!("{}", message);
                 }
+                return Ok(());
             }
-            Err(err) => {}
-        };
-        Ok(())
+            Err(err) => Err(Error::msg(err)),
+        }
     }
 }
