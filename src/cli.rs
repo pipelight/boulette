@@ -50,7 +50,7 @@ impl Cli {
         let example = format!(
             "{}\n{}",
             "Example:".underline().bold(),
-            "alias shutdown = boulette ask --ssh-only --cmd shutdown"
+            "alias off = boulette 'shutdown -h now' --ssh-only"
         );
         cli = cli.mut_arg("ssh_only", |e| {
             e.num_args(0..=1)

@@ -31,11 +31,16 @@ In order to execute the provided command you can choose between 2 challenges to 
 
 ### Aliases
 
-For convenience, you should create aliases and add them to your alias file.
+The idea is to enforce a prompt on your most dangerous commands.
+We can do so by creating aliases of those commands and prefix them with boulette.
+
+For example, setting the following alias, will prompt you whenever you type `shutdown -h now`.
 
 ```sh
-alias off='boulette "shutdown -h now"'
+alias off='boulette "shutdown"'
 ```
+
+`shutdown` becomes `boulette shutdown`.
 
 Here are the ones I use the most frequently.
 
@@ -43,6 +48,15 @@ Here are the ones I use the most frequently.
 alias off='boulette "shutdown -h now" --ssh-only --challenge hostname'
 alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
 alias reboot='boulette reboot --ssh-only --challenge hostname'
+```
+
+You can also prefix every shutdown commands wit boulette (fish shell).
+This way `shutdown` and `shutdown -h now` will both require confirmation.
+
+```fish
+function shutdown;
+  boulette "shutdown $argv" --ssh-only --challenge hostname
+end
 ```
 
 You can display a usefull help message with minimal examples.
