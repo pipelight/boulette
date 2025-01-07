@@ -78,12 +78,12 @@ impl Cli {
         };
         if res.is_err() {
             return Ok(());
-        } else {
-            let default_shell = env::var("SHELL").into_diagnostic()?;
-            let mut p = process::Command::new(default_shell);
-            p.arg("-c").arg(&cli.cmd);
-            p.spawn().into_diagnostic()?;
         }
+
+        let default_shell = env::var("SHELL").into_diagnostic()?;
+        let mut p = process::Command::new(default_shell);
+        p.arg("-c").arg(&cli.cmd);
+        p.spawn().into_diagnostic()?;
         Ok(())
     }
 }
