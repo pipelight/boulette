@@ -33,6 +33,8 @@
           inherit system overlays;
         };
       in {
+        nixosModules.boulette = import ./modules;
+        darwinModules.boulette = import ./modules;
         packages.default = pkgs.callPackage ./package.nix {};
         devShells.default = pkgs.callPackage ./shell.nix {};
       };
