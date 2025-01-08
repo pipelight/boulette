@@ -1,6 +1,9 @@
 // Colors
+use super::utils::is_ssh_session;
+
 use owo_colors::colors::*;
 use owo_colors::OwoColorize;
+use rand::{distributions::Uniform, Rng};
 
 use bon::Builder;
 use std::env;
@@ -21,14 +24,25 @@ impl Prompt {
     fn display_warning() -> Result<()> {
         let user = env::var("USER").into_diagnostic()?;
         let hostname = format!("@{}", gethostname().to_str().unwrap());
-        println!(
-            "{}: {} {} -> {}{}",
-            "Warning".yellow().bold(),
-            "(boulette)",
-            "You are on a remote ssh session".bold(),
-            user.yellow().bold(),
-            hostname.green().bold()
-        );
+        if is_ssh_session() {
+            println!(
+                "{}: {} {} -> {}{}",
+                "Warning".yellow().bold(),
+                "(boulette)",
+                "You are on a remote ssh session".bold(),
+                user.yellow().bold(),
+                hostname.green().bold()
+            );
+        } else {
+            println!(
+                "{}: {} {} -> {}{}",
+                "Warning".yellow().bold(),
+                "(boulette)",
+                "You are on a local terminal".bold(),
+                user.yellow().bold(),
+                hostname.green().bold()
+            );
+        }
         Ok(())
     }
     fn make_prompt_text(&self) -> Result<String> {
@@ -54,21 +68,22 @@ impl Prompt {
         let text = self.make_prompt_text()?;
 
         let res = Confirm::new(&text)
-            .with_help_message("type y/n to confirm/abort")
+            .with_help_message("Type y/n to confirm/abort.")
             .prompt();
 
         match res {
-            Ok(status) => {
-                match status {
-                    true => {
-                        println!("{}", "Resuming!".green().bold());
-                    }
-                    false => {
-                        println!("{}", "Aborting!".red().bold());
-                    }
+            Ok(status) => match status {
+                true => {
+                    let message = "Resuming!";
+                    println!("{}", message.green().bold());
+                    return Ok(());
                 }
-                return Ok(());
-            }
+                false => {
+                    let message = "Aborting!";
+                    println!("{}", message.red().bold());
+                    return Err(Error::msg(message));
+                }
+            },
             Err(err) => Err(Error::msg(err)),
         }
     }
@@ -78,14 +93,14 @@ impl Prompt {
         let text = self.make_prompt_text()?;
 
         let status = Text::new(&text)
-            // .with_validator(host_validator)
-            .with_help_message("type host name to confirm")
+            .with_help_message("Type hostname to confirm.")
             .prompt();
 
         match status {
             Ok(status) => {
                 if status == gethostname().to_str().unwrap() {
                     println!("{}", "Resuming!".green().bold());
+                    Ok(())
                 } else {
                     let message = format!(
                         "{}\n{}",
@@ -93,8 +108,39 @@ impl Prompt {
                         "Aborting!".red().bold()
                     );
                     println!("{}", message);
+                    return Err(Error::msg(message));
                 }
-                return Ok(());
+            }
+            Err(err) => Err(Error::msg(err)),
+        }
+    }
+
+    pub fn display_numbers_challenge(&self) -> Result<()> {
+        Self::display_warning()?;
+        let text = self.make_prompt_text()?;
+
+        let num: String = rand::thread_rng()
+            .sample_iter(Uniform::from(0..9))
+            .take(6)
+            .map(|e| e.to_string())
+            .collect();
+
+        let help = format!("Type the following numbers: {}", num);
+        let status = Text::new(&text).with_help_message(&help).prompt();
+        match status {
+            Ok(status) => {
+                if status == num {
+                    println!("{}", "Resuming!".green().bold());
+                    Ok(())
+                } else {
+                    let message = format!(
+                        "{}\n{}",
+                        "Provided input do not match host name.".red(),
+                        "Aborting!".red().bold()
+                    );
+                    println!("{}", message);
+                    return Err(Error::msg(message));
+                }
             }
             Err(err) => Err(Error::msg(err)),
         }
