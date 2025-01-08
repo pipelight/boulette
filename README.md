@@ -2,8 +2,8 @@
 
 Prevents you from accidentally shutting down remote hosts.
 
-If you've ever finished a late night codding session
-by typing "shutdown -h now" in the wrong terminal.
+If you've ever finished a late night codding session 🥱
+by typing "shutdown -h now" in the wrong terminal 😳.
 
 ## Usage
 
