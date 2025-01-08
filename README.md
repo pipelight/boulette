@@ -30,7 +30,7 @@ alias off='boulette "shutdown -h now"' --ssh-only
 
 ### Challenges
 
-In order to execute the provided command you can choose between 2 challenges to be resolved:
+In order to execute the provided command you can choose between some challenges to be resolved:
 
 - **ask**, which is the default (`--challenge ask`). You have to type 'y' or 'n' to resume commande execution.
 
