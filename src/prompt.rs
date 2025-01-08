@@ -104,7 +104,7 @@ impl Prompt {
                 } else {
                     let message = format!(
                         "{}\n{}",
-                        "Provided input do not match host name.".red(),
+                        "Provided input do not match hostname.".red(),
                         "Aborting!".red().bold()
                     );
                     println!("{}", message);
@@ -125,7 +125,7 @@ impl Prompt {
             .map(|e| e.to_string())
             .collect();
 
-        let help = format!("Type the following numbers: {}", num);
+        let help = format!("Type those numbers to confirm: {}", num);
         let status = Text::new(&text).with_help_message(&help).prompt();
         match status {
             Ok(status) => {
@@ -135,7 +135,7 @@ impl Prompt {
                 } else {
                     let message = format!(
                         "{}\n{}",
-                        "Provided input do not match host name.".red(),
+                        "Numbers do not match.".red(),
                         "Aborting!".red().bold()
                     );
                     println!("{}", message);
