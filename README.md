@@ -3,7 +3,7 @@
 Prevents you from accidentally shutting down remote hosts.
 
 If you've ever finished a late night codding session 🥱
-by typing "shutdown -h now" in the wrong terminal 😳.
+by typing `shutdown -h now` in the wrong terminal 😳.
 
 ## Usage
 
@@ -32,15 +32,15 @@ alias off='boulette "shutdown -h now"' --ssh-only
 
 In order to execute the provided command you can choose between 2 challenges to be resolved:
 
-- ask, which is the default (`--challenge ask`). You have to type 'y' or 'n' to resume commande execution.
+- **ask**, which is the default (`--challenge ask`). You have to type 'y' or 'n' to resume commande execution.
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
 
-- hostname, enable with `--challenge hostname`. You must type the host name to resume command execution.
+- **hostname**, enable with `--challenge hostname`. You must type the host name to resume command execution.
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/hostname_challenge.png)
 
-- numbers, with `--challenge numbers` You must type a random 6 number sequence to resume command execution.
+- **numbers**, with `--challenge numbers` You must type a random 6 number sequence to resume command execution.
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/numbers_challenge.png)
 
