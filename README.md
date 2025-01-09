@@ -2,13 +2,18 @@
 
 Prevents you from accidentally shutting down remote hosts!
 
-_It's late. You finish your night coding session 🥱
-by typing `shutdown -h now` in the wrong terminal,_
-_thus immediatly turning your production server off._
+_It's late 🥱._
 
-<img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="100">
+_You finish your night coding session by typing `shutdown -h now` in the terminal._
 
-No more silly mistake! Hop on the boulette train!
+_But nothing happens 😯._
+_Because it's the wrong terminal 🥹._
+_And suddenly your production server is unreachable._
+
+<img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="200">
+
+Protect you from yourself.
+Hop on the boulette train!
 
 ## Usage
 
