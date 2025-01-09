@@ -1,5 +1,5 @@
 {
-  description = "Boulette - Prevent accidental remote host shutdown";
+  description = "Boulette - Prevents you from accidentally shutting down remote hosts!";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

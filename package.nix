@@ -1,7 +1,6 @@
 {
   pkgs ? import <nixpkgs> {},
   lib,
-  installShellFiles,
   ...
 }:
 pkgs.rustPlatform.buildRustPackage rec {
@@ -19,14 +18,5 @@ pkgs.rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = with pkgs; [
     pkg-config
-    installShellFiles
   ];
-
-  buildInputs = with pkgs;
-    lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreFoundation
-      CoreServices
-      IOKit
-      Security
-    ]);
 }
