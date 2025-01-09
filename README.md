@@ -1,9 +1,5 @@
 # Boulette - A terminal confirmation prompt.
 
-**Prevents you from accidentally shutting down remote hosts!**
-
-## Context
-
 _It's late._ 🥱
 
 _You finish your night coding session by typing `shutdown -h now` in a terminal._
@@ -18,6 +14,10 @@ _And suddenly your production server is unreachable._
 
 Protect you from yourself.
 Hop on the boulette train!
+
+**Boulette prevents you from accidentally shutting down remote hosts!**
+by raising a warning prompt on dangerous commands.
+It can also enforce a challenge resolution before resuming or aborting.
 
 ## Usage
 
