@@ -17,7 +17,7 @@ Hop on the boulette train!
 
 **Boulette prevents you from accidentally shutting down remote hosts!**
 by raising a warning prompt on dangerous commands.
-It can also enforce a challenge resolution before resuming or aborting.
+It can also enforce a challenge resolution to decide whether to resume(or abort) the command.
 
 ## Usage
 
