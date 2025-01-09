@@ -2,6 +2,8 @@
 
 **Prevents you from accidentally shutting down remote hosts!**
 
+## Context
+
 _It's late._ 🥱
 
 _You finish your night coding session by typing `shutdown -h now` in a terminal._
