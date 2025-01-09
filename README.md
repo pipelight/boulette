@@ -7,28 +7,22 @@ by typing `shutdown -h now` in the wrong terminal 😳.
 
 ## Usage
 
-Type `boulette` before a critical command and a confirmation prompt will show up.
+Prefix a critical command with `boulette` and a confirmation prompt will show up.
 
 ```sh
-boulette "shutdown -h now"
+boulette "shutdown"
 ```
 
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
-
-### Ssh Only
-
-Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
-
-When aliasing a command `<cmd>` with `boulette <cmd>`, typing `<cmd>` will execute transparently in a local terminal,
-and will only raise a prompt when executed from inside an ssh session.
+Create an alias to replace the command with the **bouletteproof** one.
 
 ```sh
-alias off='boulette "shutdown -h now"' --ssh-only
+# .bashrc/.zshrc or config.fish
+alias shutdown = 'boulette shutdown'
 ```
 
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
+and then safely use `shutdown`.
 
-### Challenges
+### Challenge types
 
 In order to execute the provided command you can choose between some challenges to be resolved:
 
@@ -44,7 +38,20 @@ In order to execute the provided command you can choose between some challenges 
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/numbers_challenge.png)
 
-### Aliases
+### Over ssh only
+
+Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
+
+When aliasing a command `<cmd>` with `boulette <cmd>`, typing `<cmd>` will execute transparently in a local terminal,
+and will only raise a prompt when executed from inside an ssh session.
+
+```sh
+alias off='boulette "shutdown -h now"' --ssh-only
+```
+
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
+
+### Write aliases
 
 The idea is to enforce a prompt on your most dangerous commands.
 We can do so by creating aliases of those commands and prefix them with boulette.
@@ -80,12 +87,6 @@ function shutdown;
 end
 ```
 
-You can display a usefull help message with minimal examples.
-
-```sh
-boulette --help
-```
-
 ## Install
 
 with cargo:
@@ -100,6 +101,14 @@ with nix(flakes):
 ```sh
 nix-shell -p https://github.com/pipelight/boulette
 
+```
+
+## Help
+
+You can display a usefull help message with minimal examples.
+
+```sh
+boulette --help
 ```
 
 Greatly inspired by [Molly-guard](https://salsa.debian.org/debian/molly-guard).
