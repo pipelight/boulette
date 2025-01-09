@@ -2,7 +2,7 @@
 
 Prevents you from accidentally shutting down remote hosts.
 
-If you've ever finished a late night codding session 🥱
+If you've ever finished a late night coding session 🥱
 by typing `shutdown -h now` in the wrong terminal 😳.
 
 ## Usage
