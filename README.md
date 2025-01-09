@@ -1,13 +1,15 @@
 # Boulette - A terminal confirmation prompt.
 
-Prevents you from accidentally shutting down remote hosts!
+**Prevents you from accidentally shutting down remote hosts!**
 
-_It's late 🥱._
+_It's late._ 🥱
 
-_You finish your night coding session by typing `shutdown -h now` in the terminal._
+_You finish your night coding session by typing `shutdown -h now` in a terminal._
 
-_But nothing happens 😯._
-_Because it's the wrong terminal 🥹._
+_But nothing happens._
+
+_Because it's the wrong terminal._ 🥹
+
 _And suddenly your production server is unreachable._
 
 <img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="200">
