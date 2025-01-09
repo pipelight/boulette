@@ -15,9 +15,10 @@ _And suddenly your production server is unreachable._
 Protect you from yourself.
 Hop on the boulette train!
 
-**Boulette prevents you from accidentally shutting down remote hosts!**
+**Boulette prevents you from accidentally shutting down remote hosts**
 by raising a warning prompt on dangerous commands.
-It can also enforce a challenge resolution to decide whether to resume(or abort) the command.
+The prompt simply asks for user confirmation,
+and can also enforce a challenge resolution to decide whether to resume(or abort) the command.
 
 ## Usage
 
