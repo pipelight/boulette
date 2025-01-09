@@ -18,7 +18,7 @@ See the [Write aliases section](#write-aliases)
 
 and then safely use `shutdown` 😌.
 
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_shutdown.png)
 
 ### Challenge types
 
