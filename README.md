@@ -29,9 +29,9 @@ boulette "shutdown -h now"
 ```
 
 Create an alias to replace the command with the **bouletteproof** one.
-See the [Write aliases section](#write-aliases)
+See the [Write aliases](#write-aliases) section.
 
-and then safely use `shutdown` 😌.
+And then safely use `shutdown` 😌.
 
 ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_shutdown.png)
 
@@ -67,13 +67,20 @@ alias off='boulette "shutdown -h now"' --ssh-only
 ### Write aliases
 
 The idea is to enforce a prompt on your most dangerous commands.
-We can do so by creating aliases of those commands and prefix them with boulette.
+We can do so by creating aliases of those commands
+and **prefixing them with boulette**.
 
-For example, setting the following alias, will prompt you whenever you type `shutdown -h now`.
+#### Single command alias
 
-`shutdown` becomes `boulette shutdown`.
+For example, setting the following alias,
 
-Here are the ones I use the most frequently.
+```sh
+alias off='boulette "shutdown -h now"' --ssh-only
+```
+
+will prompt you whenever you type `shutdown -h now`.
+
+Here are the one-liners I use the most frequently.
 
 ```sh
 alias off='boulette "shutdown -h now" --ssh-only --challenge hostname'
@@ -81,10 +88,17 @@ alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
 alias reboot='boulette reboot --ssh-only --challenge hostname'
 ```
 
-You can also prefix every shutdown commands wit boulette.
-This way `shutdown` and `shutdown -h now` will both require confirmation.
+#### Mutliple command alias
 
-- bash/zsh
+You can also enable boulette on a command and its every subcommands.
+
+Let's say you want to protect yourself from `shutdown` command ant its
+every options.
+This way `shutdown -r`, `shutdown -h now` and others will also raise a warning prompt.
+
+Create a shell function to wrap the command call.
+
+- for bash and zsh shells
 
 ```sh
 shutdown () {
@@ -92,7 +106,7 @@ shutdown () {
 }
 ```
 
-- fish
+- for fish shell
 
 ```fish
 function shutdown;
