@@ -6,7 +6,7 @@ _You finish your night coding session by typing `shutdown -h now` in a terminal.
 
 _But nothing happens._
 
-_Because it's the wrong terminal._ 🥹
+_Because it's the wrong terminal._
 
 _And suddenly your production server is unreachable._
 
