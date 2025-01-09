@@ -53,7 +53,7 @@ In order to execute the provided command you can choose between some challenges 
 
 ### Over ssh only
 
-Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
+Boulette confirmation prompt can be triggered inside **ssh session only** thanks to the `--ssh-only` option.
 
 When aliasing a command `<cmd>` with `boulette <cmd>`, typing `<cmd>` will execute transparently in a local terminal,
 and will only raise a prompt when executed from inside an ssh session.
