@@ -2,11 +2,11 @@
 
 Prevents you from accidentally shutting down remote hosts!
 
-_You finish a night coding session 🥱
+_It's late. You finish your night coding session 🥱
 by typing `shutdown -h now` in the wrong terminal,_
 _thus immediatly turning your production server off._
 
-<img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="20">
+<img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="100">
 
 No more silly mistake! Hop on the boulette train!
 
