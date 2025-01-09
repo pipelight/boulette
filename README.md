@@ -10,17 +10,15 @@ by typing `shutdown -h now` in the wrong terminal 😳.
 Prefix a critical command with `boulette` and a confirmation prompt will show up.
 
 ```sh
-boulette "shutdown"
+boulette "shutdown -h now"
 ```
 
 Create an alias to replace the command with the **bouletteproof** one.
+See the [Write aliases section](#write-aliases)
 
-```sh
-# .bashrc/.zshrc or config.fish
-alias shutdown = 'boulette shutdown'
-```
+and then safely use `shutdown` 😌.
 
-and then safely use `shutdown`.
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
 
 ### Challenge types
 
