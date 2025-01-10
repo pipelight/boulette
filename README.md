@@ -51,6 +51,8 @@ In order to execute the provided command you can choose between some challenges 
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/numbers_challenge.png)
 
+- **characters**, with `--challenge chars` You must type a random 6 characters sequence (Lower case 'a' to 'z' [a-z]) to resume command execution.
+
 ### Over ssh only
 
 Boulette confirmation prompt can be triggered inside **ssh session only** thanks to the `--ssh-only` option.

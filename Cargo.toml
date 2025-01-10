@@ -6,8 +6,8 @@ edition = "2021"
 [dependencies]
 bon = "3.3.2"
 clap = { version = "4.5.23", features = ["derive"] }
+fastrand = "2.3.0"
 gethostname = "0.5.0"
 inquire = "0.7.5"
 miette = { version = "7.4.0", features = ["fancy"] }
 owo-colors = "4.1.0"
-rand = "0.8.5"
