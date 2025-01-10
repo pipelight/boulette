@@ -51,7 +51,7 @@ In order to execute the provided command you can choose between some challenges 
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/numbers_challenge.png)
 
-- **characters**, with `--challenge chars` You must type a random 6 characters sequence (Lower case 'a' to 'z' [a-z]) to resume command execution.
+- **characters**, with `--challenge chars` You must type a random 6 character string (Lower case 'a' to 'z' [a-z]) to resume command execution.
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/chars_challenge.png)
 

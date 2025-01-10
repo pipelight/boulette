@@ -122,7 +122,7 @@ impl Prompt {
         let num: Vec<i32> = repeat_with(|| fastrand::i32(..)).take(6).collect();
         let num: String = num.iter().map(|e| e.to_string()).collect();
 
-        let help = format!("Type those numbers to confirm: {}", num);
+        let help = format!("Type these numbers to confirm: {}", num);
         let status = Text::new(&text).with_help_message(&help).prompt();
         match status {
             Ok(status) => {
@@ -149,7 +149,7 @@ impl Prompt {
 
         let chars: String = repeat_with(|| fastrand::char('a'..='z')).take(6).collect();
 
-        let help = format!("Type those characters to confirm: {}", chars);
+        let help = format!("Type this string to confirm: {}", chars);
         let status = Text::new(&text).with_help_message(&help).prompt();
         match status {
             Ok(status) => {
