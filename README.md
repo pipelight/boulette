@@ -1,34 +1,41 @@
 # Boulette - A terminal confirmation prompt.
 
-Prevents you from accidentally shutting down remote hosts.
+_It's late._ 🥱
 
-If you've ever finished a late night codding session 🥱
-by typing `shutdown -h now` in the wrong terminal 😳.
+_You finish your night coding session by typing `shutdown -h now` in a terminal._
+
+_But nothing happens._
+
+_Because it's the wrong terminal._
+
+_And suddenly your production server is unreachable._
+
+<img src="https://github.com/pipelight/boulette/blob/main/public/images/oh_la_boulette.jpg" width="200">
+
+Protect you from yourself.
+Hop on the boulette train!
+
+**Boulette prevents you from accidentally shutting down remote hosts**
+by raising a warning prompt on dangerous commands.
+The prompt simply asks for user confirmation,
+and can also enforce a challenge resolution to decide whether to resume(or abort) the command.
 
 ## Usage
 
-Type `boulette` before a critical command and a confirmation prompt will show up.
+Prefix a critical command with `boulette` and a confirmation prompt will show up.
 
 ```sh
 boulette "shutdown -h now"
 ```
 
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/ask_challenge.png)
+Create an alias to replace the command with the **bouletteproof** one.
+See the [Write aliases](#write-aliases) section.
 
-### Ssh Only
+And then safely use `shutdown` 😌.
 
-Boulette confirmation prompt can be triggerd inside **ssh session only** thanks to the `--ssh-only` option.
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_shutdown.png)
 
-When aliasing a command `<cmd>` with `boulette <cmd>`, typing `<cmd>` will execute transparently in a local terminal,
-and will only raise a prompt when executed from inside an ssh session.
-
-```sh
-alias off='boulette "shutdown -h now"' --ssh-only
-```
-
-![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
-
-### Challenges
+### Challenge types
 
 In order to execute the provided command you can choose between some challenges to be resolved:
 
@@ -44,16 +51,40 @@ In order to execute the provided command you can choose between some challenges 
 
   ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/numbers_challenge.png)
 
-### Aliases
+- **characters**, with `--challenge chars` You must type a random 6 character string (Lower case 'a' to 'z' [a-z]) to resume command execution.
+
+  ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/chars_challenge.png)
+
+### Over ssh only
+
+Boulette confirmation prompt can be triggered inside **ssh session only** thanks to the `--ssh-only` option.
+
+When aliasing a command `<cmd>` with `boulette <cmd>`, typing `<cmd>` will execute transparently in a local terminal,
+and will only raise a prompt when executed from inside an ssh session.
+
+```sh
+alias off='boulette "shutdown -h now"' --ssh-only
+```
+
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
+
+### Write aliases
 
 The idea is to enforce a prompt on your most dangerous commands.
-We can do so by creating aliases of those commands and prefix them with boulette.
+We can do so by creating aliases of those commands
+and **prefixing them with boulette**.
 
-For example, setting the following alias, will prompt you whenever you type `shutdown -h now`.
+#### Single command alias
 
-`shutdown` becomes `boulette shutdown`.
+For example, setting the following alias,
 
-Here are the ones I use the most frequently.
+```sh
+alias off='boulette "shutdown -h now"' --ssh-only
+```
+
+will prompt you whenever you type `shutdown -h now`.
+
+Here are the one-liners I use the most frequently.
 
 ```sh
 alias off='boulette "shutdown -h now" --ssh-only --challenge hostname'
@@ -61,10 +92,17 @@ alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
 alias reboot='boulette reboot --ssh-only --challenge hostname'
 ```
 
-You can also prefix every shutdown commands wit boulette.
-This way `shutdown` and `shutdown -h now` will both require confirmation.
+#### Mutliple command alias
 
-- bash/zsh
+You can also enable boulette on a command and its every subcommands.
+
+Let's say you want to protect yourself from `shutdown` command ant its
+every options.
+This way `shutdown -r`, `shutdown -h now` and others will also raise a warning prompt.
+
+Create a shell function to wrap the command call.
+
+- for bash and zsh shells
 
 ```sh
 shutdown () {
@@ -72,18 +110,12 @@ shutdown () {
 }
 ```
 
-- fish
+- for fish shell
 
 ```fish
 function shutdown;
   boulette "shutdown $argv" --ssh-only --challenge hostname
 end
-```
-
-You can display a usefull help message with minimal examples.
-
-```sh
-boulette --help
 ```
 
 ## Install
@@ -100,6 +132,14 @@ with nix(flakes):
 ```sh
 nix-shell -p https://github.com/pipelight/boulette
 
+```
+
+## Help
+
+You can display a usefull help message with minimal examples.
+
+```sh
+boulette --help
 ```
 
 Greatly inspired by [Molly-guard](https://salsa.debian.org/debian/molly-guard).

@@ -3,7 +3,7 @@ use super::utils::is_ssh_session;
 
 use owo_colors::colors::*;
 use owo_colors::OwoColorize;
-use rand::{distributions::Uniform, Rng};
+use std::iter::repeat_with;
 
 use bon::Builder;
 use std::env;
@@ -119,17 +119,41 @@ impl Prompt {
         Self::display_warning()?;
         let text = self.make_prompt_text()?;
 
-        let num: String = rand::thread_rng()
-            .sample_iter(Uniform::from(0..9))
-            .take(6)
-            .map(|e| e.to_string())
-            .collect();
+        let num: Vec<i32> = repeat_with(|| fastrand::i32(..)).take(6).collect();
+        let num: String = num.iter().map(|e| e.to_string()).collect();
 
-        let help = format!("Type those numbers to confirm: {}", num);
+        let help = format!("Type these numbers to confirm: {}", num);
         let status = Text::new(&text).with_help_message(&help).prompt();
         match status {
             Ok(status) => {
                 if status == num {
+                    println!("{}", "Resuming!".green().bold());
+                    Ok(())
+                } else {
+                    let message = format!(
+                        "{}\n{}",
+                        "Numbers do not match.".red(),
+                        "Aborting!".red().bold()
+                    );
+                    println!("{}", message);
+                    return Err(Error::msg(message));
+                }
+            }
+            Err(err) => Err(Error::msg(err)),
+        }
+    }
+
+    pub fn display_chars_challenge(&self) -> Result<()> {
+        Self::display_warning()?;
+        let text = self.make_prompt_text()?;
+
+        let chars: String = repeat_with(|| fastrand::char('a'..='z')).take(6).collect();
+
+        let help = format!("Type this string to confirm: {}", chars);
+        let status = Text::new(&text).with_help_message(&help).prompt();
+        match status {
+            Ok(status) => {
+                if status == chars {
                     println!("{}", "Resuming!".green().bold());
                     Ok(())
                 } else {

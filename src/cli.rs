@@ -42,6 +42,7 @@ pub enum Challenges {
     Hostname,
     Ask,
     Numbers,
+    Chars,
 }
 
 impl Cli {
@@ -73,6 +74,7 @@ impl Cli {
                 Challenges::Ask => prompt.display_ask(),
                 Challenges::Hostname => prompt.display_host_challenge(),
                 Challenges::Numbers => prompt.display_numbers_challenge(),
+                Challenges::Chars => prompt.display_chars_challenge(),
             };
             if res.is_err() {
                 return Ok(());
