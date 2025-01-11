@@ -31,28 +31,37 @@ in {
       type = types.bool;
       default = false;
       example = true;
-      description = "Enable ${moduleName} for `zsh` shell";
+      description = "Enable ${moduleName} guards for shutdown, and reboot for `zsh` interactive shells";
     };
     enableBash = mkOption {
       type = types.bool;
       default = false;
       example = true;
-      description = "Enable ${moduleName} for `bash` shell";
+      description = "Enable ${moduleName} guards for shutdown, and reboot for `bash` interactive  shells";
+    };
+    enableFish = mkOption {
+      type = types.bool;
+      default = false;
+      example = true;
+      description = "Enable ${moduleName} guards for shutdown, and reboot for `fish` interactive  shells";
     };
   };
 
   config = let
     boulette = pkgs.callPackage ./../package.nix {};
-    shutdownFunction = let
-      sshOnly =
-        if cfg.sshOnly == true
-        then "--ssh-only"
-        else "";
-      challengeType =
-        if cfg.challengeType != "ask" # Remember we default to "ask"
-        then "--challenge ${cfg.challengeType}"
-        else "";
-    in ''
+
+    # Parsing Options to make params
+    sshOnly =
+      if cfg.sshOnly == true
+      then "--ssh-only"
+      else "";
+    challengeType =
+      if cfg.challengeType != "ask" # Remember we default to "ask"
+      then "--challenge ${cfg.challengeType}"
+      else "";
+
+    # Functions
+    bashZshFunctions = ''
       # From ${moduleName}
       shutdown () {
         ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
@@ -63,13 +72,23 @@ in {
         ${boulette}/bin/boulette reboot ${sshOnly} ${challengeType}
       }
     '';
+    fishFunctions = ''
+      function shutdown;
+        ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
+      end
+
+      function reboot;
+        ${boulette}/bin/boulette "reboot" ${sshOnly} ${challengeType}
+      end
+    '';
   in
     lib.mkIf cfg.enable {
       # This gets installed regardless of other options.
       environment.systemPackages = [boulette];
       # We only want to load on interactive shells, we still want to be able to
-      # fire off shutdowns the other way.
-      programs.zsh.interactiveShellInit = lib.mkIf cfg.enableZsh shutdownFunction;
-      programs.bash.interactiveShellInit = lib.mkIf cfg.enableBash shutdownFunction;
+      # fire off shutdowns on non-interactive sessions.
+      programs.zsh.interactiveShellInit = lib.mkIf cfg.enableZsh bashZshFunctions;
+      programs.bash.interactiveShellInit = lib.mkIf cfg.enableBash bashZshFunctions;
+      programs.fish.interactiveShellInit = lib.mkIf cfg.enableFish fishFunctions;
     };
 }
