@@ -38,6 +38,9 @@
       };
     }
     // {
-      nixosModules.boulette = import ./modules;
+      nixosModules = rec {
+        default = boulette;
+        boulette = import ./modules;
+      };
     };
 }
