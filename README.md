@@ -15,7 +15,7 @@ _And suddenly your production server is unreachable._
 Protect you from yourself.
 Hop on the boulette train!
 
-**Boulette prevents you from accidentally shutting down remote hosts**
+**Boulette prevents you from accidentally damage remote hosts**
 by raising a warning prompt on dangerous commands.
 The prompt simply asks for user confirmation,
 and can also enforce a challenge resolution to decide whether to resume(or abort) the command.
@@ -23,6 +23,9 @@ and can also enforce a challenge resolution to decide whether to resume(or abort
 ## Usage
 
 Prefix a critical command with `boulette` and a confirmation prompt will show up.
+
+As an example we will use the `shutdown` command
+however every command can be **bouletteproofed**.
 
 ```sh
 boulette "shutdown -h now"
