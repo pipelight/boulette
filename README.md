@@ -120,20 +120,54 @@ end
 
 ## Install
 
-with cargo:
+
+### Cargo:
 
 ```sh
 cargo install --git https://github.com/pipelight/boulette
 
 ```
 
-with nix(flakes):
+### Nix Shell (Flakes):
 
 ```sh
 nix-shell -p https://github.com/pipelight/boulette
 
 ```
 
+### Nixos Module (Flakes)
+Add...
+#### To your inputs
+```nix
+inputs.boulette.url = "github:pipelight/boulette";
+
+```
+#### To your output params
+```nix
+outputs = {
+  # ...
+  boulette,
+  ...
+} 
+```
+#### To your NixOS configuration's modules array
+```nix
+modules = [
+  #...
+  boulette.nixosModules.default
+];
+```
+#### Finally add the options
+```nix
+services.boulette = {
+  enable = true; # Will enable and install `boulette` to your path.
+  enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.
+  enableBash = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `bash` interactive shell sessions.
+  enableFish = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `fish` interactive shell sessions.
+  challengeType = "hostname"; # Optional: Defaults to ask. One of "ask" "hostname", or "numbers".
+  sshOnly = false # Boolean, default is`false`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
+};
+```
 ## Help
 
 You can display a usefull help message with minimal examples.

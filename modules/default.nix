@@ -9,12 +9,12 @@ with lib; let
   cfg = config.services.${moduleName};
 in {
   options.services.${moduleName} = {
-    enable = mkEnableOption "Enable ${moduleName}";
+    enable = mkEnableOption "Enable ${moduleName}. Only ${moduleName} will be installed if no other options are given.";
     sshOnly = mkOption {
       type = types.bool;
       default = false;
       example = true;
-      description = "Boulette confirmation prompt will be triggerd inside ssh session only.";
+      description = "Boulette confirmation prompt will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.";
     };
     challengeType = mkOption {
       type = types.enum ["ask" "hostname" "numbers"];
