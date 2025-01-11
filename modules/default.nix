@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  self,
   ...
 }:
 with lib; let
@@ -18,7 +17,7 @@ in {
       description = "Boulette confirmation prompt will be triggerd inside ssh session only.";
     };
     challengeType = mkOption {
-      type = types.oneOf ["ask" "hostname" "numbers"];
+      type = types.string;
       default = "ask";
       example = "numbers";
       description = ''
@@ -43,23 +42,34 @@ in {
   };
 
   config = let
+    boulette = pkgs.callPackage ./../package.nix {};
     shutdownFunction = let
-      sshOnly = mkif cfg.sshOnly "--ssh-only";
-      challengeType = mkif cfg.challengeType "--challenge ${cfg.challengeType}";
+      sshOnly =
+        if cfg.sshOnly == true
+        then "--ssh-only"
+        else "";
+      challengeType =
+        if cfg.challengeType != "ask" # Remember we default to "ask"
+        then "--challenge ${cfg.challengeType}"
+        else "";
     in ''
       # From ${moduleName}
       shutdown () {
-        boulette "shutdown $argv"
+        ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
       }
+
       # From ${moduleName}
       reboot () {
-        boulette reboot ${sshOnly} ${challengeType}
+        ${boulette}/bin/boulette reboot ${sshOnly} ${challengeType}
       }
     '';
   in
-    mkIf cfg.enable {
-      environment.systemPackages = [self.package.default];
-      programs.zsh.interactiveShellInit = mkif cfg.enableZsh shutdownFunction;
-      programs.bash.interactiveShellInit = mkif cfg.enableBash shutdownFunction;
+    lib.mkIf cfg.enable {
+      # This gets added regardless of other options.
+      environment.systemPackages = [boulette];
+      # We only want to load on interactive shells, we still want to be able to
+      # fire off shutdowns the other way.
+      programs.zsh.interactiveShellInit = lib.mkIf cfg.enableZsh shutdownFunction;
+      programs.bash.interactiveShellInit = lib.mkIf cfg.enableBash shutdownFunction;
     };
 }
