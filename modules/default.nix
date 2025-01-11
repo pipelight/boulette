@@ -65,7 +65,7 @@ in {
     '';
   in
     lib.mkIf cfg.enable {
-      # This gets added regardless of other options.
+      # This gets installed regardless of other options.
       environment.systemPackages = [boulette];
       # We only want to load on interactive shells, we still want to be able to
       # fire off shutdowns the other way.
