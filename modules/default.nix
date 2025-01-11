@@ -17,7 +17,7 @@ in {
       description = "Boulette confirmation prompt will be triggerd inside ssh session only.";
     };
     challengeType = mkOption {
-      type = types.string;
+      type = types.enum ["ask" "hostname" "numbers"];
       default = "ask";
       example = "numbers";
       description = ''
