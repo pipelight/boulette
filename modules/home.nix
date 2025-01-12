@@ -91,8 +91,8 @@ in {
       home.packages = [boulette];
       # We only want to load on interactive shells, we still want to be able to
       # fire off shutdowns on non-interactive sessions.
-      programs.zsh.interactiveShellInit = lib.mkIf cfg.enableZsh bashZshFunctions;
-      programs.bash.interactiveShellInit = lib.mkIf cfg.enableBash bashZshFunctions;
+      programs.zsh.initExtra = lib.mkIf cfg.enableZsh bashZshFunctions;
+      programs.bash.initExtra = lib.mkIf cfg.enableBash bashZshFunctions;
       programs.fish.interactiveShellInit = lib.mkIf cfg.enableFish fishFunctions;
     };
 }
