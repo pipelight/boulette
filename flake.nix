@@ -40,13 +40,13 @@
     // {
       nixosModules = rec {
         default = boulette;
-        boulette = import ./modules/default.nix;
+        boulette = ./modules/default.nix;
       };
     }
     // {
       hmModules = rec {
         default = boulette;
-        boulette = import modules/home.nix;
+        boulette = ./modules/home.nix;
       };
     };
 }
