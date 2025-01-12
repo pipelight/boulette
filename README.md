@@ -123,7 +123,6 @@ end
 
 ## Install
 
-
 ### Cargo:
 
 ```sh
@@ -131,36 +130,31 @@ cargo install --git https://github.com/pipelight/boulette
 
 ```
 
-### Nix Shell (Flakes):
+### Try in a nix shell:
 
 ```sh
 nix-shell -p https://github.com/pipelight/boulette
 
 ```
 
-### Nixos Module (Flakes)
-Add...
-#### To your inputs
+<details close>
+<summary><h3> Nixos Module (Flakes) </h3></summary>
+
+Add the flake url to your inputs.
+
 ```nix
 inputs.boulette.url = "github:pipelight/boulette";
+```
 
-```
-#### To your output params
 ```nix
-outputs = {
-  # ...
-  boulette,
-  ...
-} 
-```
-#### To your NixOS configuration's modules array
-```nix
-modules = [
+imports = [
   #...
-  boulette.nixosModules.default
+  inputs.boulette.nixosModules.default
 ];
 ```
-#### Finally add the options
+
+Tweak the following options.
+
 ```nix
 services.boulette = {
   enable = true; # Will enable and install `boulette` to your path.
@@ -171,6 +165,9 @@ services.boulette = {
   sshOnly = false # Boolean, default is`false`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
 };
 ```
+
+</details>
+
 ## Help
 
 You can display a usefull help message with minimal examples.
