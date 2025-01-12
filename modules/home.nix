@@ -52,7 +52,7 @@ in {
   };
 
   config = let
-    boulette = pkgs.callPackage ./../package.nix {};
+    boulette = pkgs.callPackage ../package.nix {};
 
     # Parsing Options to make params
     sshOnly =
