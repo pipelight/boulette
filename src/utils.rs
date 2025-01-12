@@ -1,6 +1,6 @@
 use miette::{IntoDiagnostic, Result};
 use std::env;
-use std::process::id;
+use std::process;
 use sysinfo::{Pid, Process, ProcessRefreshKind, RefreshKind, System, UpdateKind};
 
 pub fn is_ssh_session() -> bool {
@@ -12,15 +12,12 @@ pub fn is_ssh_session() -> bool {
 }
 
 pub fn is_nested_ssh_session() -> bool {
-    let pid = id();
-    println!("{:?}", pid);
-
     // Get system process list
     let s = System::new_with_specifics(
         RefreshKind::nothing()
             .with_processes(ProcessRefreshKind::nothing().with_cmd(UpdateKind::Never)),
     );
-    return is_parent_ssh(&pid, &s);
+    return is_parent_ssh(&process::id(), &s);
 }
 
 /*

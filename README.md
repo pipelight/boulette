@@ -92,7 +92,6 @@ Here are the one-liners I use the most frequently.
 ```sh
 alias off='boulette "shutdown -h now" --ssh-only --challenge hostname'
 alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
-alias reboot='boulette reboot --ssh-only --challenge hostname'
 ```
 
 #### Mutliple command alias
@@ -153,7 +152,7 @@ imports = [
 ];
 ```
 
-Tweak the following options.
+Tweak the following options to your needs.
 
 ```nix
 services.boulette = {
