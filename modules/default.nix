@@ -68,12 +68,12 @@ in {
     bashZshFunctions = ''
       # From ${moduleName}
       shutdown () {
-        ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
+        ${boulette}/bin/boulette "shutdown $@" ${sshOnly} ${challengeType}
       }
 
       # From ${moduleName}
       reboot () {
-        ${boulette}/bin/boulette reboot ${sshOnly} ${challengeType}
+        ${boulette}/bin/boulette "reboot $@" ${sshOnly} ${challengeType}
       }
     '';
     fishFunctions = ''
@@ -82,7 +82,7 @@ in {
       end
 
       function reboot;
-        ${boulette}/bin/boulette "reboot" ${sshOnly} ${challengeType}
+        ${boulette}/bin/boulette "reboot $argv" ${sshOnly} ${challengeType}
       end
     '';
   in
