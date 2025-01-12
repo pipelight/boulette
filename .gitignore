@@ -1,2 +1,7 @@
-.direnv
+## Rust
 /target
+
+## Nixos
+result
+# direnv
+.direnv

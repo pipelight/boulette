@@ -12,19 +12,23 @@ in {
     enable = mkEnableOption "Enable ${moduleName}. Only ${moduleName} will be installed if no other options are given.";
     sshOnly = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       example = true;
-      description = "Boulette confirmation prompt will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.";
+      description = ''
+        Boulette confirmation prompt will be triggerd inside ssh sessions only.
+        Only effects the enable{zsh,bash,fish} options.";
+      '';
     };
     challengeType = mkOption {
-      type = types.enum ["ask" "hostname" "numbers"];
-      default = "ask";
-      example = "numbers";
+      type = types.enum ["ask" "hostname" "numbers" "chars"];
+      default = "hostname";
+      example = "chars";
       description = ''
         One of type:
         - "ask": (default) You have to type 'y' or 'n' to resume commande execution.
         - "hostname": You must type the host name to resume command execution.
         - "numbers": You must type a random 6 number sequence to resume command execution.
+        - "chars": You must type a random 6 character string to resume command execution.
       '';
     };
     enableZsh = mkOption {
@@ -56,7 +60,7 @@ in {
       then "--ssh-only"
       else "";
     challengeType =
-      if cfg.challengeType != "ask" # Remember we default to "ask"
+      if cfg.challengeType != "hostname" # Remember we default to "ask"
       then "--challenge ${cfg.challengeType}"
       else "";
 
