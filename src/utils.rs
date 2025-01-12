@@ -11,6 +11,9 @@ pub fn is_ssh_session() -> bool {
     }
 }
 
+/*
+* Is the current boulette process grand-child of an ssh process.
+*/
 pub fn is_nested_ssh_session() -> bool {
     // Get system process list
     let s = System::new_with_specifics(
