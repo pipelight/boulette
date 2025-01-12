@@ -59,8 +59,9 @@ in {
       if cfg.sshOnly == true
       then "--ssh-only"
       else "";
+
     challengeType =
-      if cfg.challengeType != "hostname" # Remember we default to "ask"
+      if cfg.challengeType != "ask" # Remember we default to "ask"
       then "--challenge ${cfg.challengeType}"
       else "";
 
