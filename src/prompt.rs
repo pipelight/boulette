@@ -63,6 +63,9 @@ impl Prompt {
         Ok(text)
     }
 
+    /*
+     * Print a prompt with a y/n confirmation input
+     */
     pub fn display_ask(&self) -> Result<()> {
         Self::display_warning()?;
         let text = self.make_prompt_text()?;

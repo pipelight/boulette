@@ -108,7 +108,7 @@ Create a shell function to wrap the command call.
 
 ```sh
 shutdown () {
-  boulette "shutdown $argv" --ssh-only --challenge hostname
+  boulette "shutdown $@" --ssh-only --challenge hostname
 }
 ```
 
