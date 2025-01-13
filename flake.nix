@@ -1,5 +1,5 @@
 {
-  description = "Boulette - Prevents you from accidentally shutting down remote hosts!";
+  description = "Boulette - Prevents you from accidentally damaging remote hosts!";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -18,6 +18,16 @@
     flake-parts.lib.mkFlake {
       inherit inputs;
     } {
+      flake = {
+        nixosModules = rec {
+          default = boulette;
+          boulette = ./modules/default.nix;
+        };
+        hmModules = rec {
+          default = boulette;
+          boulette = ./modules/home.nix;
+        };
+      };
       systems =
         flake-utils.lib.allSystems;
       perSystem = {
@@ -35,18 +45,6 @@
       in {
         packages.default = pkgs.callPackage ./package.nix {};
         devShells.default = pkgs.callPackage ./shell.nix {};
-      };
-    }
-    // {
-      nixosModules = rec {
-        default = boulette;
-        boulette = import ./modules/default.nix;
-      };
-    }
-    // {
-      hmModules = rec {
-        default = boulette;
-        boulette = import ./modules/home.nix;
       };
     };
 }
