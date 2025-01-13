@@ -14,6 +14,7 @@
     rust-overlay,
     flake-utils,
     flake-parts,
+    ...
   } @ inputs:
     flake-parts.lib.mkFlake {
       inherit inputs;
