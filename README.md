@@ -147,14 +147,17 @@ inputs.boulette.url = "github:pipelight/boulette";
 
 ```nix
 imports = [
-  #...
   inputs.boulette.nixosModules.default
+  # or
+  inputs.boulette.hmModules.default
 ];
 ```
 
 Tweak the following options to your needs.
 
 ```nix
+# default.nix AND/OR home.nix
+
 services.boulette = {
   enable = true; # Will enable and install `boulette` to your path.
   enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.

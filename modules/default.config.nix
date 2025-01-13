@@ -24,17 +24,32 @@ in {
 
     # Functions
     bashZshFunctions = ''
-      # From ${moduleName}
+      ########################
+      # Boulette module
+
+      ## Fix admin right alias expantion
+      alias sudo='sudo '
+      alias doas='doas '
+      alias doas='su '
+
+      ## Wrapper functions
       shutdown () {
         ${boulette}/bin/boulette "shutdown $@" ${sshOnly} ${challengeType}
       }
-
-      # From ${moduleName}
       reboot () {
         ${boulette}/bin/boulette "reboot $@" ${sshOnly} ${challengeType}
       }
     '';
     fishFunctions = ''
+      ########################
+      # Boulette module
+
+      ## Fix admin right alias expantion
+      alias sudo='sudo '
+      alias doas='doas '
+      alias doas='su '
+
+      ## Wrapper functions
       function shutdown;
         ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
       end
