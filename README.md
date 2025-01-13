@@ -106,21 +106,21 @@ Create a shell function to wrap the command call.
 
 - for bash and zsh shells
 
-```sh
-# bash
-shutdown () {
-  boulette "shutdown $@" --ssh-only --challenge hostname
-}
-```
+  ```sh
+  # bash
+  shutdown () {
+    boulette "shutdown $@" --ssh-only --challenge hostname
+  }
+  ```
 
 - for fish shell
 
-```fish
-# fish
-function shutdown;
-  boulette "shutdown $argv" --ssh-only --challenge hostname
-end
-```
+  ```fish
+  # fish
+  function shutdown;
+    boulette "shutdown $argv" --ssh-only --challenge hostname
+  end
+  ```
 
 #### Safeguard sudo
 
@@ -131,33 +131,41 @@ You are more likely to pase a command prefixed with `sudo`.
 The following alias is a safeguar for the `sudo <cmd>`
 version of your dangerous command.
 
-```sh
-# bash
-sudo () {
-  args="$*"
-  if [[ $args =~ ^(shutdown|reboot).* ]]; then
-    cmd='boulette "sudo $args" --ssh-only --challenge hostname'
-    eval $cmd
-  else
-    cmd='$SHELL -c "sudo $args"'
-    eval $cmd
-  fi
-}
-```
+- for bash and zsh shells
 
-```fish
-# fish
-function sudo
-  set args "$argv"
-  set -l res $(string match -r "^(shutdown|reboot).*" $args)
-  # If there is a match
-  if set -q res[1]
-    command boulette "sudo $args" --ssh-only --challenge hostname
-  else
-    command sudo $argv
+  ```sh
+  # bash
+  sudo () {
+    args="$*"
+    if [[ $args =~ ^(shutdown|reboot).* ]]; then
+      cmd='boulette "sudo $args" --ssh-only --challenge hostname'
+      eval $cmd
+    else
+      cmd='$SHELL -c "sudo $args"'
+      eval $cmd
+    fi
+  }
+  ```
+
+- for fish shell
+
+  ```fish
+  # fish
+  function sudo
+    set args "$argv"
+    set -l res $(string match -r "^(shutdown|reboot).*" $args)
+    # If there is a match
+    if set -q res[1]
+      command boulette "sudo $args" --ssh-only --challenge hostname
+    else
+      command sudo $argv
+    end
   end
-end
-```
+  ```
+
+Then you can safely inadvertently type `sudo`.
+
+![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_sudo.png)
 
 ## Install
 
