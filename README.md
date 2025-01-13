@@ -107,6 +107,7 @@ Create a shell function to wrap the command call.
 - for bash and zsh shells
 
 ```sh
+# bash
 shutdown () {
   boulette "shutdown $@" --ssh-only --challenge hostname
 }
@@ -115,15 +116,48 @@ shutdown () {
 - for fish shell
 
 ```fish
+# fish
 function shutdown;
   boulette "shutdown $argv" --ssh-only --challenge hostname
 end
 ```
 
-### Jackass
+#### Safeguard sudo
 
-If you really are reckless and scroll, eye shuts, through your shell history
-You are more likely to pase a command prefixed with `sudo` every dangerous commands.
+If you really are reckless and scroll, eye shuts,
+through your shell history.
+You are more likely to pase a command prefixed with `sudo`.
+
+The following alias is a safeguar for the `sudo <cmd>`
+version of your dangerous command.
+
+```sh
+# bash
+sudo () {
+  args="$*"
+  if [[ $args =~ ^(shutdown|reboot).* ]]; then
+    cmd='boulette "sudo $args" --ssh-only --challenge hostname'
+    eval $cmd
+  else
+    cmd='$SHELL -c "sudo $args"'
+    eval $cmd
+  fi
+}
+```
+
+```fish
+# fish
+function sudo
+  set args "$argv"
+  set -l res $(string match -r "^(shutdown|reboot).*" $args)
+  # If there is a match
+  if set -q res[1]
+    command boulette "sudo $args" --ssh-only --challenge hostname
+  else
+    command sudo $argv
+  end
+end
+```
 
 ## Install
 
