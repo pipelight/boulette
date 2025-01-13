@@ -71,13 +71,13 @@ alias off='boulette "shutdown -h now"' --ssh-only
 
 ![boulette prompt](https://github.com/pipelight/boulette/blob/main/public/images/example_ssh.png)
 
-### Write aliases
+## Write aliases
 
 The idea is to enforce a prompt on your most dangerous commands.
 We can do so by creating aliases of those commands
 and **prefixing them with boulette**.
 
-#### Single command alias
+### Single command alias
 
 For example, setting the following alias,
 
@@ -94,7 +94,7 @@ alias off='boulette "shutdown -h now" --ssh-only --challenge hostname'
 alias sus='boulette "systemctl suspend" --ssh-only --challenge hostname'
 ```
 
-#### Mutliple command alias
+### Mutliple command alias
 
 You can also enable boulette on a command and its every subcommands.
 
@@ -122,7 +122,7 @@ Create a shell function to wrap the command call.
   end
   ```
 
-#### Safeguard sudo
+### Safeguard sudo
 
 If you really are reckless and scroll, eye shuts,
 through your shell history.
