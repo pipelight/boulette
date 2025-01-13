@@ -85,7 +85,7 @@ For example, setting the following alias,
 alias off='boulette "shutdown -h now"' --ssh-only
 ```
 
-will prompt you whenever you type `shutdown -h now`.
+will prompt you whenever you type `off`.
 
 Here are the one-liners I use the most frequently.
 
