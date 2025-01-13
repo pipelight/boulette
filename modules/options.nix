@@ -49,5 +49,17 @@ in {
       example = true;
       description = "Enable ${moduleName} guards for shutdown, and reboot for `fish` interactive  shells";
     };
+    enableSudoWrapper = mkOption {
+      type = types.bool;
+      default = false;
+      example = true;
+      description = "Enable ${moduleName} guards for sudo shutdown and sudo reboot";
+    };
+    commands = mkOption {
+      type = types.listOf types.str;
+      default = ["shutdown" "reboot"];
+      example = ["shutdown" "reboot" "nixos-rebuild switch"];
+      description = "The list of commands to be safeguarded by ${moduleName}";
+    };
   };
 }

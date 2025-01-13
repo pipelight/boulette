@@ -15,7 +15,7 @@ _And suddenly your production server is unreachable._
 Protect you from yourself.
 Hop on the boulette train!
 
-**Boulette prevents you from accidentally damage remote hosts**
+**Boulette prevents you from accidentally damaging remote hosts**
 by raising a warning prompt on dangerous commands.
 The prompt simply asks for user confirmation,
 and can also enforce a challenge resolution to decide whether to resume(or abort) the command.
@@ -119,6 +119,11 @@ function shutdown;
   boulette "shutdown $argv" --ssh-only --challenge hostname
 end
 ```
+
+### Jackass
+
+If you really are reckless and scroll, eye shuts, through your shell history
+You are more likely to pase a command prefixed with `sudo` every dangerous commands.
 
 ## Install
 

@@ -22,7 +22,8 @@ pub struct Cli {
         long,
         global = true,
         required = false,
-        default_missing_value = "false",
+        num_args= 0..1,
+        default_missing_value = "true",
         default_value = "false"
     )]
     pub ssh_only: Option<bool>,
@@ -54,12 +55,6 @@ impl Cli {
             "Example:".underline().bold(),
             "alias off = boulette 'shutdown -h now' --ssh-only"
         );
-        cli = cli.mut_arg("ssh_only", |e| {
-            e.num_args(0..=1)
-                .require_equals(true)
-                .default_missing_value("true")
-                .default_value("false")
-        });
         cli = cli.after_help(&example);
 
         let matches = cli.get_matches();
