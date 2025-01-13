@@ -168,11 +168,10 @@ services.boulette = {
   enableZsh = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `zsh` interactive shell sessions.
   enableBash = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `bash` interactive shell sessions.
   enableFish = true; # Optional: Will add guards for `shutdown` and `reboot` commands to your `fish` interactive shell sessions.
-  enableSudoWrapper = true;
-  commands = ["shutdown" "reboot"];
-
-  challengeType = "hostname"; # Optional: Defaults to ask. One of "ask" "hostname", or "numbers".
-  sshOnly = false # Boolean, default is`false`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
+  enableSudoWrapper = true; # Optional
+  commands = ["shutdown" "reboot"]; # Optional
+  challengeType = "hostname"; # Optional: Defaults to hostname. One of "ask" "hostname", or "numbers".
+  sshOnly = true # Boolean, default is`true`. Optional: Boulette confirmation prompts will be triggerd inside ssh session only. Only effects the enable{zsh,bash,fish} options.
 };
 ```
 
