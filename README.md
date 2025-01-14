@@ -221,7 +221,7 @@ services.boulette = {
 
 ## Help
 
-You can display a usefull help message with minimal examples.
+You can display a useful help message with minimal examples.
 
 ```sh
 boulette --help
