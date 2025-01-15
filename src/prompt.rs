@@ -1,7 +1,6 @@
 // Colors
 use super::utils::is_ssh_session;
 
-use owo_colors::colors::*;
 use owo_colors::OwoColorize;
 use std::iter::repeat_with;
 
@@ -10,7 +9,7 @@ use std::env;
 
 use gethostname::gethostname;
 
-use inquire::{validator::Validation, Confirm, Text};
+use inquire::{Confirm, Text};
 
 // Error handling
 use miette::{Error, IntoDiagnostic, Result};
@@ -56,7 +55,7 @@ impl Prompt {
             short_cmd = self.cmd.clone()
         };
         let text = format!(
-            "Do you really want to execute \"{}\" on {}\n",
+            "Do you really want to execute `{}` on {}\n",
             short_cmd.purple(),
             hostname.green().bold()
         );

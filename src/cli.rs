@@ -1,14 +1,13 @@
 use super::prompt::Prompt;
-use super::utils::is_ssh_session;
+use super::utils::{get_spawning_shell, is_ssh_session};
 
-use owo_colors::colors::*;
 use owo_colors::OwoColorize;
-use std::env;
+
+use std::process;
 
 use clap::FromArgMatches;
-use clap::{Args, Command, Parser, Subcommand, ValueEnum, ValueHint};
+use clap::{Args, Command, Parser, ValueEnum, ValueHint};
 // use clap_verbosity_flag::{InfoLevel, Verbosity};
-use std::process;
 
 // Error Handling
 use miette::{IntoDiagnostic, Result};
@@ -76,10 +75,20 @@ impl Cli {
             }
         }
 
-        let default_shell = env::var("SHELL").into_diagnostic()?;
-        let mut p = process::Command::new(default_shell);
-        p.arg("-c").arg(&cli.cmd);
-        p.spawn().into_diagnostic()?;
+        // Use a subshell
+        let shell = get_spawning_shell()?;
+        let args: Vec<&str> = cli.cmd.split(' ').collect();
+        let mut p = process::Command::new(&shell.name);
+        p.arg("-c");
+        if !args.is_empty() {
+            p.arg(cli.cmd);
+        }
+
+        p.stdin(process::Stdio::null())
+            .stdout(process::Stdio::inherit())
+            .stderr(process::Stdio::inherit())
+            .output()
+            .into_diagnostic()?;
         Ok(())
     }
 }
