@@ -1,0 +1,15 @@
+# system wide configuration
+# /etc/boulette/config.toml 
+
+# user specific configuration
+# ~/.confg/boulette/config.toml 
+
+# Template configuration file
+
+[[alias]]
+commands = ["sudo shutdown", "shutdown"]
+challenge = "host"
+
+[[alias]]
+commands = ["tt"] # test
+challenge = "ask"
