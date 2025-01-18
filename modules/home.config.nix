@@ -60,13 +60,7 @@ in {
       }
     '';
     fishFunctions = ''
-      ########################
       # Boulette module
-
-      ## Wrapper functions
-      function "sudo shutdown";
-        ${boulette}/bin/boulette "sudo shutdown $argv" ${sshOnly} ${challengeType}
-      end
       function shutdown;
         ${boulette}/bin/boulette "shutdown $argv" ${sshOnly} ${challengeType}
       end
